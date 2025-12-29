@@ -1380,11 +1380,11 @@ void SequencerPanel::setDraggedGreaterCellRightBound(const int& row, const std::
 
 void SequencerPanel::setTemplateRows(const int& newNumberOfVisibleRows)
 {
-    grid.templateRows.ensureStorageAllocated(newNumberOfVisibleRows);
-    grid.templateRows.minimiseStorageOverheads();
+    auto& gridRows{ grid.templateRows };
 
-    for (auto row{ 0 }; row != newNumberOfVisibleRows; ++row)
-        grid.templateRows.add(grid.autoRows);
+    gridRows.resize(newNumberOfVisibleRows);
+    gridRows.minimiseStorageOverheads();
+    gridRows.fill(grid.autoRows);
 }
 
 void SequencerPanel::handShallowCopying(const SequencerPanel& otherSequencerPanel)
